@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IatecProjeto.Migrations
 {
     [DbContext(typeof(ProjetoContext))]
-    [Migration("20211124202529_EventosUsuarios")]
-    partial class EventosUsuarios
+    [Migration("20211124225345_Inicial")]
+    partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,7 +53,7 @@ namespace IatecProjeto.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Evento");
+                    b.ToTable("Eventos");
                 });
 
             modelBuilder.Entity("IatecProjeto.Models.EventoUsuario", b =>
@@ -68,7 +68,7 @@ namespace IatecProjeto.Migrations
 
                     b.HasIndex("EventoId");
 
-                    b.ToTable("EventoUsuario");
+                    b.ToTable("EventosUsuarios");
                 });
 
             modelBuilder.Entity("IatecProjeto.Models.Usuario", b =>

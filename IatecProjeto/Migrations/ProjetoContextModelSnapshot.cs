@@ -51,7 +51,7 @@ namespace IatecProjeto.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Evento");
+                    b.ToTable("Eventos");
                 });
 
             modelBuilder.Entity("IatecProjeto.Models.EventoUsuario", b =>
@@ -66,7 +66,7 @@ namespace IatecProjeto.Migrations
 
                     b.HasIndex("EventoId");
 
-                    b.ToTable("EventoUsuario");
+                    b.ToTable("EventosUsuarios");
                 });
 
             modelBuilder.Entity("IatecProjeto.Models.Usuario", b =>
