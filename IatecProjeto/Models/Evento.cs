@@ -1,6 +1,6 @@
 ﻿namespace IatecProjeto.Models
 {
-    internal class Evento
+    public class Evento
     {
         public int Id { get; set; }
         public string Nome { get; set; }

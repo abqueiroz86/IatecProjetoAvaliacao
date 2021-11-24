@@ -2,7 +2,7 @@
 using IatecProjeto.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace IatecProjeto
+namespace IatecProjeto.Controllers
 {
     internal class ProjetoContext : DbContext
     {
