@@ -1,4 +1,5 @@
-﻿using IatecProjeto.Models;
+﻿using System.Net;
+using IatecProjeto.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,9 +15,9 @@ namespace IatecProjeto.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Usuario>>> GetAll()
         {
-            using (var _context = new ProjetoContext())
+            using (var contexto = new ProjetoContext())
             {
-                return await _context
+                return await contexto
                     .Usuarios
                     .ToListAsync();
             }
@@ -28,9 +29,9 @@ namespace IatecProjeto.Controllers
         [HttpGet("~/api/Usuarios/GetById")]
         public async Task<ActionResult<IEnumerable<Usuario>>> GetById(int id)
         {
-            using (var _context = new ProjetoContext())
+            using (var contexto = new ProjetoContext())
             {
-                var usuario = await _context
+                var usuario = await contexto
                     .Usuarios
                     .Where(u => u.Id == id)
                     .ToListAsync();
@@ -43,17 +44,62 @@ namespace IatecProjeto.Controllers
         }
 
         /// <summary>
-        /// Retorna todos usuários da base
+        /// Retorna todos usuários da base com os eventos
         /// </summary>
         [HttpGet("~/api/Usuarios/GetEventosUsuarios")]
         public async Task<ActionResult<IEnumerable<Usuario>>> GetEventosUsuarios()
         {
-            using (var _context = new ProjetoContext())
+            using (var contexto = new ProjetoContext())
             {
-                return await _context
+                return await contexto
                     .Usuarios
                     .Include(e => e.EventosUsuarios)
+                    .ThenInclude(t => t.Evento)
                     .ToListAsync();
+            }
+        }
+
+        /// <summary>
+        /// Insere usuário
+        /// </summary>
+        [HttpPost]
+        public Usuario Add(Usuario usuario)
+        {
+            using (var contexto = new ProjetoContext())
+            {
+                contexto.Add(usuario);
+                contexto.SaveChanges();
+
+                return usuario;
+            }
+        }
+
+        /// <summary>
+        /// Exclui usuário
+        /// </summary>
+        [HttpGet("~/api/Usuarios/ExcluiUsuarios")]
+        public async Task<ActionResult<IEnumerable<Usuario>>> Delete(int id)
+        {
+            using (var contexto = new ProjetoContext())
+            {
+                Usuario usuario = contexto.Usuarios.Find(id);
+                if (usuario == null)
+                {
+                    return NotFound();
+                }
+
+                contexto.Usuarios.Remove(usuario);
+
+                try
+                {
+                    contexto.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    return NotFound();
+                }
+
+                return Ok();
             }
         }
     }
