@@ -30,6 +30,8 @@ namespace IatecProjeto
             builder.Services.AddSwaggerGen();
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddCors();
+
             builder.Services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo
@@ -56,6 +58,12 @@ namespace IatecProjeto
             });
 
             var app = builder.Build();
+
+            app.UseCors(x => x
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .SetIsOriginAllowed(origin => true)
+                    .AllowCredentials());
 
             app.UseSwagger();
             app.UseSwaggerUI();
