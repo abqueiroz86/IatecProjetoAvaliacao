@@ -44,17 +44,17 @@ namespace IatecProjeto.Controllers
         }
 
         /// <summary>
-        /// Retorna todos usuários da base com os eventos
+        /// Retorna os eventos de um usuário
         /// </summary>
         [HttpGet("~/api/Usuarios/GetEventosUsuarios")]
-        public async Task<ActionResult<IEnumerable<Usuario>>> GetEventosUsuarios()
+        public async Task<ActionResult<IEnumerable<EventoUsuario>>> GetEventosUsuarios(int id)
         {
             using (var contexto = new ProjetoContext())
             {
                 return await contexto
-                    .Usuarios
-                    .Include(e => e.EventosUsuarios)
-                    .ThenInclude(t => t.Evento)
+                    .EventosUsuarios
+                    .Where(u => u.UsuarioId == id)
+                    .Include(t => t.Evento)
                     .ToListAsync();
             }
         }
