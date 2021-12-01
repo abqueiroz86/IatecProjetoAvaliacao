@@ -1,25 +1,24 @@
 ﻿using IatecProjeto.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace IatecProjeto.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EventosController
+    public class EventosUsuariosController
     {
         /// <summary>
-        /// Insere evento
+        /// Insere eventoUsuario
         /// </summary>
         [HttpPost]
-        public Evento Add(Evento evento)
+        public EventoUsuario Add(EventoUsuario eventoUsuario)
         {
             using (var contexto = new ProjetoContext())
             {
-                contexto.Add(evento);
+                contexto.Add(eventoUsuario);
                 contexto.SaveChanges();
 
-                return evento;
+                return eventoUsuario;
             }
         }
     }
