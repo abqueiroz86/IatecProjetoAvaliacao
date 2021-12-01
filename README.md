@@ -1,3 +1,3 @@
 # IatecProjetoAvaliacao - API
 
-Projeto desenvolvido em ASP.net web core
+Projeto desenvolvido em ASP.net core
